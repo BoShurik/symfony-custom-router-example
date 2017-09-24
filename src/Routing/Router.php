@@ -51,7 +51,7 @@ class Router implements RouterInterface
     private function hasRoute($name)
     {
         try {
-            $this->generate($name);
+            $this->base->generate($name);
         } catch (\InvalidArgumentException $e) {
             return !$e instanceof RouteNotFoundException;
         }
