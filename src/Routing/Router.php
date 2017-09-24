@@ -7,6 +7,7 @@
 
 namespace App\Routing;
 
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
@@ -49,10 +50,13 @@ class Router implements RouterInterface
      */
     private function hasRoute($name)
     {
-        $routes = $this->getRouteCollection();
-        $route = $routes->get($name);
+        try {
+            $this->generate($name);
+        } catch (\InvalidArgumentException $e) {
+            return !$e instanceof RouteNotFoundException;
+        }
 
-        return $route !== null;
+        return true;
     }
 
     /**
