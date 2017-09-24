@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ page }}</h1>
+    <h2>Locale: {{ app.request.locale }}</h2>
+    <p>
+        {% set new = random() %}
+        <a href="{{ path('page', { 'page': new, '_locale': app.request.locale }) }}">{{ new }}</a>
+    </p>
+{% endblock %}
